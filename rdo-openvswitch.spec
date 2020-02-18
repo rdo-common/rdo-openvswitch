@@ -14,7 +14,7 @@ end}
 
 Name:		rdo-openvswitch
 Version:	%{ovs_version}
-Release:	0.5%{?dist}
+Release:	1%{?dist}
 Summary:	Wrapper rpm to allow installing OVS with new versioning schemes
 
 Group:		System Environment/Daemons
