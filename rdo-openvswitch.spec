@@ -36,7 +36,7 @@ end}
 Name:           rdo-openvswitch
 Epoch:          1
 Version:        %{ovs_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wrapper rpm to allow installing OVS with new versioning schemes
 
 Group:          System Environment/Daemons
@@ -88,6 +88,17 @@ Provides:   openvswitch-test = %{?epoch:%{epoch}:}%{ovs_version}
 
 %description test
 Wrapper rpm for the base openvswitch-test package
+
+%package -n rdo-network-scripts-openvswitch
+Summary:    wrapper for network-scripts-openvswitch rpm
+License:    Public domain
+Requires:   network-scripts-openvswitch%{ovs_version}
+Provides:   network-scripts-openvswitch = %{?epoch:%{epoch}:}%{ovs_version}
+%{lua:ovs_obsoletes("network-scripts-openvswitch*")}
+
+%description -n rdo-network-scripts-openvswitch
+Wrapper rpm for the base network-scripts-openvswitch package
+
 
 ######## OVN PACKAGING ########
 
@@ -177,12 +188,16 @@ Wrapper rpm for the base ovn-vtep package
 %files -n python3-rdo-openvswitch
 %files devel
 %files test
+%files -n rdo-network-scripts-openvswitch
 %files -n rdo-ovn
 %files -n rdo-ovn-central
 %files -n rdo-ovn-host
 %files -n rdo-ovn-vtep
 
 %changelog
+* Fri Oct 09 2020 Alfredo Moralejo <amoralej@redhat.xom> - 2.13-2
+- Adds wrapper subpackage for network-scripts-openvswitch
+
 * Mon Sep 14 2020 Yatin Karel <ykarel@redhat.com> - 2.13-1
 - RDO Wrapper for OVS/OVN 2.13 builds from Fast DataPath
 
