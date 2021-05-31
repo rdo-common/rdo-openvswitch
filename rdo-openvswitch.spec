@@ -1,13 +1,13 @@
 # Current version of OVS that this package requires
-%define ovs_version 2.13
+%define ovs_version 2.15
 
 # Comma-separated (no spaces) e.g. 2.10,2.9 ... of prior fast-datapath
 # openvswitch and ovn packages we need to obsolete
-%define obsolete_ovs_versions 2.10,2.11,2.12
+%define obsolete_ovs_versions 2.10,2.11,2.12,2.13
 
 # Same as above, but enable ovs/ovn to be separate
-%define ovn_version 2.13
-%define obsolete_ovn_versions 2.10,2.11,2.12
+%define ovn_version 2021
+%define obsolete_ovn_versions 2.10,2.11,2.12,2.13
 
 # Lua macro to create a bunch of Obsoletes by splitting up the above
 # definition and substituting where there's an asterisk
@@ -36,7 +36,7 @@ end}
 Name:           rdo-openvswitch
 Epoch:          1
 Version:        %{ovs_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Wrapper rpm to allow installing OVS with new versioning schemes
 
 Group:          System Environment/Daemons
@@ -106,8 +106,8 @@ Wrapper rpm for the base network-scripts-openvswitch package
 Version:    %{ovn_version}
 Summary:    wrapper for ovn rpm
 License:    Public domain
-Requires:   %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:   ovn%{ovn_version}
+Requires:   %{name} = %{?epoch:%{epoch}:}%{ovs_version}-%{release}
+Requires:   ovn-%{ovn_version}
 Provides:   ovn = %{?epoch:%{epoch}:}%{ovn_version}
 Provides:   openvswitch-ovn-common = %{?epoch:%{epoch}:}%{ovn_version}
 Provides:   %{name}-ovn-common = %{?epoch:%{epoch}:}%{version}
@@ -127,7 +127,7 @@ Version:    %{ovn_version}
 Summary:    wrapper for openvswitch-ovn-central rpm
 License:    Public domain
 Requires:   rdo-ovn = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:   ovn%{ovn_version}-central
+Requires:   ovn-%{ovn_version}-central
 Provides:   openvswitch-ovn-central = %{?epoch:%{epoch}:}%{ovn_version}
 Obsoletes:  openvswitch-ovn-central < %{?epoch:%{epoch}:}%{ovn_version}
 Provides:   ovn-central = %{?epoch:%{epoch}:}%{ovn_version}
@@ -147,7 +147,7 @@ Version:    %{ovn_version}
 Summary:    wrapper for openvswitch-ovn-host rpm
 License:    Public domain
 Requires:   rdo-ovn = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:   openvswitch%{ovn_version}-ovn-host
+Requires:   ovn-%{ovn_version}-host
 Provides:   openvswitch-ovn-host = %{?epoch:%{epoch}:}%{ovn_version}
 Obsoletes:  openvswitch-ovn-host < %{?epoch:%{epoch}:}%{ovn_version}
 Provides:   ovn-host = %{?epoch:%{epoch}:}%{ovn_version}
@@ -166,7 +166,7 @@ Version:    %{ovn_version}
 Summary:    wrapper for openvswitch-ovn-vtep rpm
 License:    Public domain
 Requires:   rdo-ovn = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:   ovn%{ovn_version}-vtep
+Requires:   ovn-%{ovn_version}-vtep
 Provides:   openvswitch-ovn-vtep = %{?epoch:%{epoch}:}%{ovn_version}
 Obsoletes:  openvswitch-ovn-vtep < %{?epoch:%{epoch}:}%{ovn_version}
 Provides:   ovn-vtep = %{?epoch:%{epoch}:}%{ovn_version}
@@ -195,6 +195,9 @@ Wrapper rpm for the base ovn-vtep package
 %files -n rdo-ovn-vtep
 
 %changelog
+* Tue May 25 2021 Yatin Karel <ykarel@redhat.com> - 2.15-1
+- Update to ovs 2.15 and ovn 2021
+
 * Fri Oct 09 2020 Alfredo Moralejo <amoralej@redhat.xom> - 2.13-2
 - Adds wrapper subpackage for network-scripts-openvswitch
 
