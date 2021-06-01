@@ -36,7 +36,7 @@ end}
 Name:           rdo-openvswitch
 Epoch:          1
 Version:        %{ovs_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wrapper rpm to allow installing OVS with new versioning schemes
 
 Group:          System Environment/Daemons
@@ -147,7 +147,7 @@ Version:    %{ovn_version}
 Summary:    wrapper for openvswitch-ovn-host rpm
 License:    Public domain
 Requires:   rdo-ovn = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:   openvswitch%{ovn_version}-ovn-host
+Requires:   ovn%{ovn_version}-host
 Provides:   openvswitch-ovn-host = %{?epoch:%{epoch}:}%{ovn_version}
 Obsoletes:  openvswitch-ovn-host < %{?epoch:%{epoch}:}%{ovn_version}
 Provides:   ovn-host = %{?epoch:%{epoch}:}%{ovn_version}
@@ -195,6 +195,9 @@ Wrapper rpm for the base ovn-vtep package
 %files -n rdo-ovn-vtep
 
 %changelog
+* Tue Jun 01 2021 Alfredo Moralejo <amoralej@redhat.com> - 2.13-3
+- Fixed requires for rod-ovn-host to avoid conflicts to new ovn-2021 package.
+
 * Fri Oct 09 2020 Alfredo Moralejo <amoralej@redhat.xom> - 2.13-2
 - Adds wrapper subpackage for network-scripts-openvswitch
 
