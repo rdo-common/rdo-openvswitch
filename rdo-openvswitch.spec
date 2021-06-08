@@ -36,7 +36,7 @@ end}
 Name:           rdo-openvswitch
 Epoch:          1
 Version:        %{ovs_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wrapper rpm to allow installing OVS with new versioning schemes
 
 Group:          System Environment/Daemons
@@ -45,11 +45,12 @@ URL:            http://www.openvswitch.org
 BuildArch:      noarch
 
 Requires:       openvswitch%{ovs_version}
-Requires:       network-scripts-openvswitch%{ovs_version}
+Requires:       network-scripts-openvswitch = %{?epoch:%{epoch}:}%{ovs_version}
 Provides:       openvswitch = %{?epoch:%{epoch}:}%{ovs_version}
 Provides:       rdo-openvswitch = %{?epoch:%{epoch}:}%{ovs_version}
 Provides:       rhosp-openvswitch = %{?epoch:%{epoch}:}%{ovs_version}
 %{lua:ovs_obsoletes("openvswitch*")}
+%{lua:ovs_obsoletes("network-scripts-openvswitch*")}
 
 %description
 Wrapper rpm for the base openvswitch package
@@ -195,6 +196,9 @@ Wrapper rpm for the base ovn-vtep package
 %files -n rdo-ovn-vtep
 
 %changelog
+* Tue Jun 08 2021 Alfredo Moralejo <amoralej@redhat.com> - 2.15-2
+- Fix problem with upgrade path for network-scripts-openvswitch
+
 * Tue May 25 2021 Yatin Karel <ykarel@redhat.com> - 2.15-1
 - Update to ovs 2.15 and ovn 2021
 
